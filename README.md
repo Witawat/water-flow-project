@@ -42,6 +42,7 @@ http://www.arduinoall.com/article/สอน-วิธี-ใช้งาน-ardu
 7. CS   ต่อเข้าบอร์ด mega ขาที่ 53
 
 ปล. ตรงโปรแกรมที่ให้เปลี่ยน chipselect ให้เปลี่ยนตาม SD card ที่รองรับด้วย
+
 ปล2. ตอนนี้ใช้ CHIPSELECT 53 ใช้ได้ ณ วันที่ 19/10/2558
 
 ###CODE OF PROJECT
