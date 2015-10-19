@@ -15,8 +15,8 @@ project about water flow sensor information
 ###การประกอบเจ้า YF-S201 กับ Arduino(แบบฉบับผู้เขียน)
 1. เจ้าตัว YF-S201 มีทั้งหมด 3 ขา
 2. ขาสีดำเป็น ground
-3. ขาสีเหลืองเป็น vcc(5v)
-4. ขาสีแดงเป็นขาส่งข้อมูลต่อเข้ากับ mega ขาที่ 2
+3. ขาสีแดงเป็น vcc(5v)
+4. ขาสีเหลืองเป็นขาส่งข้อมูลต่อเข้ากับ mega ขาที่ 2
 
 ###การประกอบเจ้าจอ OLED กับ Arduino(แบบฉบับผู้เขียน)
 1. มีด้วยกันทั้งหมด 6 ขาเราจะเริ่มพูดถึงขา GND ซึ่งอยู่ด้านซ้ายสุดก่อนและถัดมาทางขวาเรื่อยๆ
@@ -40,7 +40,8 @@ http://www.arduinoall.com/article/สอน-วิธี-ใช้งาน-ardu
 5. MOSI ต่อเข้าบอร์ด mega ขาที่ 51
 6. SCK  ต่อเข้าบอร์ด mega ขาที่ 52
 7. CS   ต่อเข้าบอร์ด mega ขาที่ 53
-
+ปล. ตรงโปรแกรมที่ให้เปลี่ยน chipselect ให้เปลี่ยนตาม SD card ที่รองรับด้วย
+ปล2. ตอนนี้ใช้ CHIPSELECT 53 ใช้ได้ ณ วันที่ 19/10/2558
 ###CODE OF PROJECT
         #include <SPI.h>
         #include <Wire.h>
@@ -73,7 +74,8 @@ http://www.arduinoall.com/article/สอน-วิธี-ใช้งาน-ardu
 
         //sd part value 
         File myFile; // สร้างออฟเจก File สำหรับจัดการข้อมูล
-        const int chipSelect = 4;
+        //เปลี่ยน chipselect ให้ตรงตามแบบที่ support sd card ด้วย
+        const int chipSelect = 53;
         int countOfSDData = 0;
         String data1 = "";
         String data2 = "";
