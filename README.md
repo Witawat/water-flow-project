@@ -26,7 +26,7 @@ project about water flow sensor information
 5. SDA ให้ต่อเข้ากับบอร์ด mega ขาที่ 34
 6. RST ให้ต่อเข้ากับบอร์ด mega ขาที่ 36
 7. D/C ให้ต่อเข้ากับบอร์ด mega ขาที่ 38
-ปล. แบบฉบับของ MEGA ของข้าพเจ้า
+ปล. แบบฉบับของ MEGA ของข้าพเจ้าเด้อ
 ###การประกอบเจ้าจอ ESP8266 กับ Arduino(แบบฉบับผู้เขียน)
 ให้เข้าไปดูวิธีต่อในเว็บนี้
 http://www.arduinoall.com/article/สอน-วิธี-ใช้งาน-arduino-wi-fi-module-esp8266
