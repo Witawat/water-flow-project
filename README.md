@@ -26,7 +26,7 @@ project about water flow sensor information
 5. SDA ให้ต่อเข้ากับบอร์ด mega ขาที่ 34
 6. RST ให้ต่อเข้ากับบอร์ด mega ขาที่ 36
 7. D/C ให้ต่อเข้ากับบอร์ด mega ขาที่ 38
-ปล. แบบฉบับของ MEGA ของข้าพเจ้าเด้อ
+
 ###การประกอบเจ้าจอ ESP8266 กับ Arduino(แบบฉบับผู้เขียน)
 ให้เข้าไปดูวิธีต่อในเว็บนี้
 http://www.arduinoall.com/article/สอน-วิธี-ใช้งาน-arduino-wi-fi-module-esp8266
@@ -40,8 +40,10 @@ http://www.arduinoall.com/article/สอน-วิธี-ใช้งาน-ardu
 5. MOSI ต่อเข้าบอร์ด mega ขาที่ 51
 6. SCK  ต่อเข้าบอร์ด mega ขาที่ 52
 7. CS   ต่อเข้าบอร์ด mega ขาที่ 53
+
 ปล. ตรงโปรแกรมที่ให้เปลี่ยน chipselect ให้เปลี่ยนตาม SD card ที่รองรับด้วย
 ปล2. ตอนนี้ใช้ CHIPSELECT 53 ใช้ได้ ณ วันที่ 19/10/2558
+
 ###CODE OF PROJECT
         #include <SPI.h>
         #include <Wire.h>
