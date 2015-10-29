@@ -49,76 +49,79 @@ http://www.arduinoall.com/article/สอน-วิธี-ใช้งาน-ardu
 ###SWITCH AND SOUND SENSOR
 1. SWITCH ต่อกับขา 3 ที่เป็น input
 2. Sound input ต่อกับตา 4 ที่ไฟออก และ อีกขาของ sound sensor ต่อกับ ground 
+ 
+
 ###CODE OF PROJECT
+
         #include <SPI.h>
-#include <Wire.h>
-#include <Adafruit_GFX.h>
-#include <Adafruit_SSD1306.h>
-#include <SoftwareSerial.h>
-#include <SD.h>
+        #include <Wire.h>
+        #include <Adafruit_GFX.h>
+        #include <Adafruit_SSD1306.h>
+        #include <SoftwareSerial.h>
+        #include <SD.h>
 
-#define DEBUG true
+        #define DEBUG true
 
-#define OLED_MOSI  34  //SDA
-#define OLED_CLK   32  //SCL
-#define OLED_DC    38
-#define OLED_CS    13
-#define OLED_RESET 36
-Adafruit_SSD1306 display(OLED_MOSI, OLED_CLK, OLED_DC, OLED_RESET, OLED_CS);
-SoftwareSerial dbgSerial(10,11 ); // TX, RX
+        #define OLED_MOSI  34  //SDA
+        #define OLED_CLK   32  //SCL
+        #define OLED_DC    38
+        #define OLED_CS    13
+        #define OLED_RESET 36
+        Adafruit_SSD1306 display(OLED_MOSI, OLED_CLK, OLED_DC, OLED_RESET, OLED_CS);
+        SoftwareSerial dbgSerial(10,11 ); // TX, RX
 
-byte sensorInterrupt = 0;  // 0 = digital pin 2
-byte sensorPin       = 2;
-float calibrationFactor = 4.5;
+        byte sensorInterrupt = 0;  // 0 = digital pin 2
+        byte sensorPin       = 2;
+        float calibrationFactor = 4.5;
 
-volatile byte pulseCount;  
+        volatile byte pulseCount;  
 
-float flowRate;
-unsigned int flowMilliLitres;
-unsigned long totalMilliLitres;
+        float flowRate;
+        unsigned int flowMilliLitres;
+        unsigned long totalMilliLitres;
 
-unsigned long oldTime;
-//sound and save data part (function)
-const int buttonPin = 3;
-const int soundPin = 4;
-int buttonState = 0;
+        unsigned long oldTime;
+        //sound and save data part (function)
+        const int buttonPin = 3;
+        const int soundPin = 4;
+        int buttonState = 0;
 
-int countOfButton = 0;
-int averageWaterFlow = 0;
+        int countOfButton = 0;
+        int averageWaterFlow = 0;
 
-//sd part value 
-File myFile; // สร้างออฟเจก File สำหรับจัดการข้อมูล
-const int chipSelect = 53;
-int countOfSDData = 0;
-String data1 = "";
-String data2 = "";
-String data3 = "";
+        //sd part value 
+        File myFile; // สร้างออฟเจก File สำหรับจัดการข้อมูล
+        const int chipSelect = 53;
+        int countOfSDData = 0;
+        String data1 = "";
+        String data2 = "";
+        String data3 = "";
 
-void setup() 
-{ 
-   display.begin();
-   Serial.begin(9600); 
-   dbgSerial.begin(9600);
-  // sound part
-  pinMode(buttonPin, INPUT);
-  pinMode(soundPin, OUTPUT);
+        void setup() 
+        { 
+        display.begin();
+        Serial.begin(9600); 
+        dbgSerial.begin(9600);
+        // sound part
+        pinMode(buttonPin, INPUT);
+        pinMode(soundPin, OUTPUT);
   
-  // sd part
-  while (!Serial) {
-    ; // รอจนกระทั่งเชื่อมต่อกับ Serial port แล้ว สำหรับ Arduino Leonardo เท่านั้น
-  }
-    Serial.print("Initializing SD card...");
-    pinMode(SS, OUTPUT);
-    if (!SD.begin(chipSelect)) {
-    Serial.println("initialization failed!");
-    return;
-  }
-  Serial.println("initialization done."); 
+        // sd part
+        while (!Serial) {
+        ; // รอจนกระทั่งเชื่อมต่อกับ Serial port แล้ว สำหรับ Arduino Leonardo เท่านั้น
+        }
+        Serial.print("Initializing SD card...");
+        pinMode(SS, OUTPUT);
+        if (!SD.begin(chipSelect)) {
+        Serial.println("initialization failed!");
+        return;
+        }
+        Serial.println("initialization done."); 
 
-  if (SD.exists("wfdata.txt")) {
-    SD.remove("wfdata.txt");
-  }
-  myFile = SD.open("wfdata.txt", FILE_WRITE);
+        if (SD.exists("wfdata.txt")) {
+        SD.remove("wfdata.txt");
+        }
+        myFile = SD.open("wfdata.txt", FILE_WRITE);
     // ถ้าเปิดไฟล์สำเร็จ ให้เขียนข้อมูลเพิ่มลงไป
     if (myFile) {
       Serial.print("Writing...");
@@ -132,15 +135,15 @@ void setup()
 
 
 
-  // water flow sensor part
-  pinMode(sensorPin, INPUT);
-  digitalWrite(sensorPin, HIGH);
-  pulseCount        = 0;
-  flowRate          = 0.0;
-  flowMilliLitres   = 0;
-  totalMilliLitres  = 0;
-  oldTime           = 0;
-  attachInterrupt(sensorInterrupt, pulseCounter, FALLING);
+        // water flow sensor part
+        pinMode(sensorPin, INPUT);
+        digitalWrite(sensorPin, HIGH);
+        pulseCount        = 0;
+        flowRate          = 0.0;
+        flowMilliLitres   = 0;
+        totalMilliLitres  = 0;
+        oldTime           = 0;
+        attachInterrupt(sensorInterrupt, pulseCounter, FALLING);
 
       // esp 8266 part
       sendData("AT+RST\r\n",2000,DEBUG); 
